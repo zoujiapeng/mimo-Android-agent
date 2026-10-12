@@ -1,0 +1,6 @@
+<resources>
+    <color name="white">#FFFFFFFF</color>
+    <color name="mimo_primary">#FF3D5AFE</color>
+    <color name="log_bg">#FF101418</color>
+    <color name="log_fg">#FFB9F6CA</color>
+</resources>

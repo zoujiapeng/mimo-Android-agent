@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MiMo 手机助手"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingBottom="12dp" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#D32F2F"
+            android:paddingBottom="8dp" />
+
+        <Button
+            android:id="@+id/btnAccessibility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="① 开启无障碍服务" />
+
+        <EditText
+            android:id="@+id/etBaseUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="MiMo API Base URL，如 https://xxx/v1"
+            android:inputType="textUri"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/etApiKey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="API Key"
+            android:inputType="textPassword"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/etModel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="模型名，如 MiMo-7B-RL"
+            android:inputType="text"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/etGoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="任务目标"
+            android:inputType="textMultiLine"
+            android:minLines="2"
+            android:gravity="top"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/etSteps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="最大步数"
+            android:inputType="number"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="8dp">
+
+            <Button
+                android:id="@+id/btnStart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="② 开始执行" />
+
+            <Button
+                android:id="@+id/btnStop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="停止" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnClear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="清空日志" />
+
+        <TextView
+            android:id="@+id/tvLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/log_bg"
+            android:textColor="@color/log_fg"
+            android:fontFamily="monospace"
+            android:textSize="12sp"
+            android:padding="10dp"
+            android:minLines="12"
+            android:textIsSelectable="true" />
+
+    </LinearLayout>
+</ScrollView>

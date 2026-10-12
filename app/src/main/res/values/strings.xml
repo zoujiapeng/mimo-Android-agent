@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MiMo 手机助手</string>
+    <string name="accessibility_label">MiMo 助手</string>
+    <string name="accessibility_desc">开启后，MiMo 助手可以读取当前屏幕内容并模拟点击、输入，帮你自动操作其他 App（如打开 QQ 发消息）。</string>
+</resources>

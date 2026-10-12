@@ -1,0 +1,14 @@
+# Build outputs
+build/
+.gradle/
+*.apk
+*.keystore
+*.jks
+
+# Local config
+local.properties
+.idea/
+.cxx/
+
+# OS
+.DS_Store
