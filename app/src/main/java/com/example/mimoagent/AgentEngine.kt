@@ -1,6 +1,9 @@
 package com.example.mimoagent
 
+import android.content.Context
+
 class AgentEngine(
+    private val appContext: Context,
     private val client: MiMoClient,
     private val onLog: (String) -> Unit
 ) {
@@ -67,7 +70,8 @@ class AgentEngine(
             onLog("步骤 $step 执行：${action} -> $result")
             history.append("步骤$step：执行 ").append(action).append(" 结果：").append(result).append('\n')
 
-            sleep(action.waitMs.coerceIn(300, 5000))
+            val extra = if (action.type == "wait") 0L else action.waitMs.coerceIn(300, 5000)
+            sleep(extra)
         }
         return "达到最大步数，任务可能未完成"
     }
@@ -113,7 +117,16 @@ class AgentEngine(
 
             "open_app" -> service.openApp(action.app)
 
-            "wait" -> "等待 ${action.waitMs}ms"
+            "notify" -> {
+                val text = action.text.ifEmpty { "时间到了" }
+                Notifier.show(appContext, "MiMo 提醒", text)
+                "已发送通知「$text」"
+            }
+
+            "wait" -> {
+                sleep(action.waitMs.coerceIn(0, 600000))
+                "已等待 ${action.waitMs}ms"
+            }
 
             else -> "未知动作「${action.type}」，可用动作见系统说明"
         }
@@ -144,7 +157,8 @@ class AgentEngine(
 {"action":"swipe","direction":"up"}
 {"action":"back"}
 {"action":"home"}
-{"action":"wait","wait_ms":1000}
+{"action":"wait","wait_ms":30000}
+{"action":"notify","text":"时间到了，该休息啦"}
 {"action":"finish","reason":"已发送晚安"}
 
 【决策原则】
@@ -154,6 +168,8 @@ class AgentEngine(
 - 输入文字前先 tap 输入框使其获得焦点，再用 set_text。
 - 发送消息后，屏幕出现自己发送的「晚安」气泡即视为成功，返回 finish。
 - 同一动作连续失败两次以上时，换一种方式（如滑动、返回、或换入口）。
+- 若用户要求「X 秒/分钟后再提醒我/叫我」，先 wait 对应的毫秒数（wait_ms 可到 600000），再用 notify 发送通知，最后 finish。例如 30 秒后提醒：先 {"action":"wait","wait_ms":30000}，再 {"action":"notify","text":"用户要求的时间到了"}。
+- 纯定时提醒类任务不需要操作屏幕，直接用 wait + notify 即可完成。
 """.trimIndent()
     }
 }

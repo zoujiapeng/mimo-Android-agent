@@ -6,6 +6,7 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -40,6 +41,20 @@ class MainActivity : Activity() {
 
         findViewById<Button>(R.id.btnAccessibility).setOnClickListener {
             startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+        }
+
+        findViewById<Button>(R.id.btnOverlay).setOnClickListener {
+            if (Build.VERSION.SDK_INT >= 23 && !Settings.canDrawOverlays(this)) {
+                startActivity(
+                    Intent(
+                        Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:$packageName")
+                    )
+                )
+            } else {
+                FloatingService.start(this)
+                moveTaskToBack(true)
+            }
         }
 
         findViewById<Button>(R.id.btnStart).setOnClickListener {

@@ -50,7 +50,7 @@ class AgentService : Service() {
             return
         }
         val client = MiMoClient(cfg.baseUrl, cfg.apiKey, cfg.model)
-        val e = AgentEngine(client) { AgentLog.log(it) }
+        val e = AgentEngine(applicationContext, client) { AgentLog.log(it) }
         engine = e
         thread = Thread {
             val result = e.run(goal, cfg.maxSteps)

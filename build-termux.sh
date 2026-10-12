@@ -57,7 +57,8 @@ PY
 zipalign -f 4 "$BUILD/base.apk" "$BUILD/aligned.apk"
 
 echo "[7/7] sign"
-KS="$BUILD/debug.keystore"
+KS="$HOME/.mimoagent/debug.keystore"
+mkdir -p "$(dirname "$KS")"
 [ -f "$KS" ] || keytool -genkeypair -keystore "$KS" -alias androiddebugkey \
   -storepass android -keypass android -keyalg RSA -keysize 2048 -validity 10000 \
   -dname "CN=Android Debug,O=Android,C=US"
